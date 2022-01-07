@@ -3,6 +3,8 @@ import { newsCategory } from './news'
 import Header from './components/header'
 import NewsList from './components/newsList'
 import Pagination from './components/pagination'
+import Loading from './components/loading'
+
 
 const fakeNews = [
   {
@@ -41,6 +43,7 @@ export class App extends Component {
                 </div>
                 <NewsList news={fakeNews}/>
                 <Pagination />
+                <Loading />
             </div>
           </div>
       </div>
