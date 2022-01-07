@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { newsCategory } from './news'
 import Header from './components/header'
 import NewsList from './components/newsList'
+import Pagination from './components/pagination'
 
 const fakeNews = [
   {
@@ -32,7 +33,14 @@ export class App extends Component {
           <div className='row'>
             <div className='col-sm-6 offset-md-3'>
                 <Header category = {newsCategory.technology}/>
+                <div className='d-flex'>
+                    <p className='text-black-50'>About {0} results found</p>
+                    <p className='text-black-50 ms-auto'>
+                      {1} page of {100}
+                    </p>
+                </div>
                 <NewsList news={fakeNews}/>
+                <Pagination />
             </div>
           </div>
       </div>
