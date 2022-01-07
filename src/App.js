@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { newsCategory } from './news'
+import axios from 'axios'
 import Header from './components/header'
 import NewsList from './components/newsList'
 import Pagination from './components/pagination'
 import Loading from './components/loading'
+
 
 
 const fakeNews = [
@@ -28,6 +30,23 @@ const fakeNews = [
     },
   },
 ]
+
+const URL = 'https://jsonplaceholder.typicode.com/users' 
+axios.get(URL)
+      .then(res=>{
+        console.log(res.data)
+      })
+
+const user = {
+  name: 'jabed',
+  email:'jabed@gmail.com',
+  username: 'jabedhosen'
+}
+
+axios.post(URL,user).then(res=>{
+  console.log(res);
+})
+
 export class App extends Component {
   render() {
     return (
