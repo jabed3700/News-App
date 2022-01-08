@@ -61,7 +61,7 @@ export default class News {
         return this.getNews()
     }
 
-    changeCategory(){}
+    changeCategory(category){}
 
     search(){}
 
