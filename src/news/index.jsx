@@ -61,7 +61,11 @@ export default class News {
         return this.getNews()
     }
 
-    changeCategory(category){}
+    changeCategory(category){
+        this._category = category;
+        this._currentPage = 1;
+        return this.getNews();
+    }
 
     search(){}
 
