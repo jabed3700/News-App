@@ -67,7 +67,10 @@ export default class News {
         return this.getNews();
     }
 
-    search(){}
+    search(term){
+        this._searchTerm = term;
+        return this.getNews();
+    }
 
 
     _getURL(){
