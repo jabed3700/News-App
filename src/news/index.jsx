@@ -35,6 +35,7 @@ export default class News {
                 totalResults:data.totalResults,
             }
         }catch(e){
+            console.log('asdfasd')
             throw new Error(e);
         }
     }
