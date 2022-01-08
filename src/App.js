@@ -1,92 +1,28 @@
 import React, { Component } from 'react'
 import News, { newsCategory } from './news'
-import axios from 'axios'
 import Header from './components/header'
 import NewsList from './components/newsList'
 import Pagination from './components/pagination'
 import Loading from './components/loading'
 
-
-
-// const fakeNews = [
-//   {
-//     title:'Title',
-//     content: 'Content',
-//     url: 'https:://linktonews.com',
-//     urlToImage: 'https://linktoimage.com',
-//     publishedAt: 'published date and time',
-//     source:{
-//       name:'CNN',
-//     },
-//   },
-//   {
-//     title:'Title',
-//     content: 'Content',
-//     url: 'https:://linktonews.com',
-//     urlToImage: 'https://linktoimage.com',
-//     publishedAt: 'published date and time',
-//     source:{
-//       name:'CNN',
-//     },
-//   },
-// ]
-
-// const URL = 'https://jsonplaceholder.typicode.com/users' 
-// axios.get(URL)
-//       .then(res=>{
-//         console.log(res.data)
-//       })
-
-// const user = {
-//   name: 'jabed',
-//   email:'jabed@gmail.com',
-//   username: 'jabedhosen'
-// }
-
-// axios.post(URL,user).then(res=>{
-//   console.log(res);
-// })
+const news = new News(newsCategory.technology)
 
 export class App extends Component {
-
   state= {
-    news:[],
-    category:newsCategory.technology,
-  }
-
-  changeCategory = (category) =>{
-    console.log(category)
-    this.setState({category})
+    data:{},
+    isLoading:true
   }
 
   componentDidMount(){
-    // const url = `${process.env.REACT_APP_NEWS_URL}?apiKey=${process.env.REACT_APP_NEWS_API_KEY}&category=${this.state.category}&pageSize=20`;
-    // axios.get(url)
-    //   .then(response=>{
-    //     this.setState({
-    //       news:response.data.articles
-    //     })
-    //   })
-    //   .catch(e=>{
-    //     console.log(e)
-    //   })
-
-    const news = new News(newsCategory.technology);
-    news.getNews().then(data=>console.log(data))
-  }
-  componentDidUpdate(prevProps,prevState){
-    // if(prevState.category !== this.state.category){
-    //   const url = `${process.env.REACT_APP_NEWS_URL}?apiKey=${process.env.REACT_APP_NEWS_API_KEY}&category=${this.state.category}&pageSize=20`;
-    //   axios.get(url)
-    //     .then(response=>{
-    //       this.setState({
-    //         news:response.data.articles
-    //       })
-    //     })
-    //     .catch(e=>{
-    //       console.log(e)
-    //     })
-    // }
+    news.getNews()
+        .then(data=>{
+          this.setState({data,isLoading:false})
+        })
+        .catch(e =>{
+          console.log(e)
+          alert('Something Went Wrong')
+          this.setState({isLoading:false})
+        })
   }
 
   render() {
@@ -104,9 +40,14 @@ export class App extends Component {
                       {1} page of {100}
                     </p>
                 </div>
-                <NewsList news={this.state.news}/>
+                {
+                  this.state.isLoading ?(
+                    <Loading />
+                  ):(
+                    <NewsList news={this.state.data.article}/>
+                  )
+                }
                 <Pagination />
-                <Loading />
             </div>
           </div>
       </div>
