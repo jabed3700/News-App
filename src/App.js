@@ -31,23 +31,35 @@ const fakeNews = [
   },
 ]
 
-const URL = 'https://jsonplaceholder.typicode.com/users' 
-axios.get(URL)
-      .then(res=>{
-        console.log(res.data)
-      })
+// const URL = 'https://jsonplaceholder.typicode.com/users' 
+// axios.get(URL)
+//       .then(res=>{
+//         console.log(res.data)
+//       })
 
-const user = {
-  name: 'jabed',
-  email:'jabed@gmail.com',
-  username: 'jabedhosen'
-}
+// const user = {
+//   name: 'jabed',
+//   email:'jabed@gmail.com',
+//   username: 'jabedhosen'
+// }
 
-axios.post(URL,user).then(res=>{
-  console.log(res);
-})
+// axios.post(URL,user).then(res=>{
+//   console.log(res);
+// })
 
 export class App extends Component {
+
+  componentDidMount(){
+    const url = `${process.env.REACT_APP_NEWS_URL}?apiKey=${process.env.REACT_APP_NEWS_API_KEY}&category=technology&pageSize=5`;
+    axios.get(url)
+      .then(response=>{
+        console.log(response)
+      })
+      .catch(e=>{
+        console.log(e)
+      })
+  }
+
   render() {
     return (
       <div className='container'>
