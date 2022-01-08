@@ -50,7 +50,13 @@ import Loading from './components/loading'
 export class App extends Component {
 
   state= {
-    news:[]
+    news:[],
+    category:newsCategory.technology,
+  }
+
+  changeCategory = (category) =>{
+    console.log(category)
+    this.setState({category})
   }
 
   componentDidMount(){
@@ -71,7 +77,10 @@ export class App extends Component {
       <div className='container'>
           <div className='row'>
             <div className='col-sm-6 offset-md-3'>
-                <Header category = {newsCategory.technology}/>
+                <Header 
+                    category = {this.state.category} 
+                    changeCategory={this.changeCategory}
+                />
                 <div className='d-flex'>
                     <p className='text-black-50'>About {0} results found</p>
                     <p className='text-black-50 ms-auto'>
