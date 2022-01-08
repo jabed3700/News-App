@@ -37,11 +37,29 @@ export default class News {
         }
     }
 
-    next(){}
+    next(){
+        if(this._isNext()){
+            this._currentPage++;
+            return this.getNews();
+        }
+        return false;
+    }
 
-    prev(){}
+    prev(){
+        if(this._isPrevious()){
+            this._currentPage--;
+            return this.getNews();
+        }
+        return false;
+    }
 
-    setCurrentPage(){}
+    setCurrentPage(pageNumber){
+        if(pageNumber <1 && pageNumber> this._totalPage){
+            throw new Error ('Invalid Page Number')
+        }
+        this._currentPage = pageNumber;
+        return this.getNews()
+    }
 
     changeCategory(){}
 
@@ -56,5 +74,13 @@ export default class News {
         if(this._currentPage) url+= `&page=${this._currentPage}`;
 
         return url;
+    }
+
+    _isNext(){
+        return this._currentPage < this._totalPage;
+    }
+
+    _isPrevious(){
+        return this._currentPage > 1;
     }
 }
