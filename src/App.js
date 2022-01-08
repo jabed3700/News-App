@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { newsCategory } from './news'
+import News, { newsCategory } from './news'
 import axios from 'axios'
 import Header from './components/header'
 import NewsList from './components/newsList'
@@ -60,30 +60,33 @@ export class App extends Component {
   }
 
   componentDidMount(){
-    const url = `${process.env.REACT_APP_NEWS_URL}?apiKey=${process.env.REACT_APP_NEWS_API_KEY}&category=${this.state.category}&pageSize=20`;
-    axios.get(url)
-      .then(response=>{
-        this.setState({
-          news:response.data.articles
-        })
-      })
-      .catch(e=>{
-        console.log(e)
-      })
+    // const url = `${process.env.REACT_APP_NEWS_URL}?apiKey=${process.env.REACT_APP_NEWS_API_KEY}&category=${this.state.category}&pageSize=20`;
+    // axios.get(url)
+    //   .then(response=>{
+    //     this.setState({
+    //       news:response.data.articles
+    //     })
+    //   })
+    //   .catch(e=>{
+    //     console.log(e)
+    //   })
+
+    const news = new News(newsCategory.technology);
+    news.getNews().then(data=>console.log(data))
   }
   componentDidUpdate(prevProps,prevState){
-    if(prevState.category !== this.state.category){
-      const url = `${process.env.REACT_APP_NEWS_URL}?apiKey=${process.env.REACT_APP_NEWS_API_KEY}&category=${this.state.category}&pageSize=20`;
-      axios.get(url)
-        .then(response=>{
-          this.setState({
-            news:response.data.articles
-          })
-        })
-        .catch(e=>{
-          console.log(e)
-        })
-    }
+    // if(prevState.category !== this.state.category){
+    //   const url = `${process.env.REACT_APP_NEWS_URL}?apiKey=${process.env.REACT_APP_NEWS_API_KEY}&category=${this.state.category}&pageSize=20`;
+    //   axios.get(url)
+    //     .then(response=>{
+    //       this.setState({
+    //         news:response.data.articles
+    //       })
+    //     })
+    //     .catch(e=>{
+    //       console.log(e)
+    //     })
+    // }
   }
 
   render() {
