@@ -8,28 +8,28 @@ import Loading from './components/loading'
 
 
 
-const fakeNews = [
-  {
-    title:'Title',
-    content: 'Content',
-    url: 'https:://linktonews.com',
-    urlToImage: 'https://linktoimage.com',
-    publishedAt: 'published date and time',
-    source:{
-      name:'CNN',
-    },
-  },
-  {
-    title:'Title',
-    content: 'Content',
-    url: 'https:://linktonews.com',
-    urlToImage: 'https://linktoimage.com',
-    publishedAt: 'published date and time',
-    source:{
-      name:'CNN',
-    },
-  },
-]
+// const fakeNews = [
+//   {
+//     title:'Title',
+//     content: 'Content',
+//     url: 'https:://linktonews.com',
+//     urlToImage: 'https://linktoimage.com',
+//     publishedAt: 'published date and time',
+//     source:{
+//       name:'CNN',
+//     },
+//   },
+//   {
+//     title:'Title',
+//     content: 'Content',
+//     url: 'https:://linktonews.com',
+//     urlToImage: 'https://linktoimage.com',
+//     publishedAt: 'published date and time',
+//     source:{
+//       name:'CNN',
+//     },
+//   },
+// ]
 
 // const URL = 'https://jsonplaceholder.typicode.com/users' 
 // axios.get(URL)
@@ -49,11 +49,17 @@ const fakeNews = [
 
 export class App extends Component {
 
+  state= {
+    news:[]
+  }
+
   componentDidMount(){
-    const url = `${process.env.REACT_APP_NEWS_URL}?apiKey=${process.env.REACT_APP_NEWS_API_KEY}&category=technology&pageSize=5`;
+    const url = `${process.env.REACT_APP_NEWS_URL}?apiKey=${process.env.REACT_APP_NEWS_API_KEY}&category=technology&pageSize=20`;
     axios.get(url)
       .then(response=>{
-        console.log(response)
+        this.setState({
+          news:response.data.articles
+        })
       })
       .catch(e=>{
         console.log(e)
@@ -72,7 +78,7 @@ export class App extends Component {
                       {1} page of {100}
                     </p>
                 </div>
-                <NewsList news={fakeNews}/>
+                <NewsList news={this.state.news}/>
                 <Pagination />
                 <Loading />
             </div>
