@@ -60,7 +60,7 @@ export class App extends Component {
   }
 
   componentDidMount(){
-    const url = `${process.env.REACT_APP_NEWS_URL}?apiKey=${process.env.REACT_APP_NEWS_API_KEY}&category=technology&pageSize=20`;
+    const url = `${process.env.REACT_APP_NEWS_URL}?apiKey=${process.env.REACT_APP_NEWS_API_KEY}&category=${this.state.category}&pageSize=20`;
     axios.get(url)
       .then(response=>{
         this.setState({
@@ -70,6 +70,20 @@ export class App extends Component {
       .catch(e=>{
         console.log(e)
       })
+  }
+  componentDidUpdate(prevProps,prevState){
+    if(prevState.category !== this.state.category){
+      const url = `${process.env.REACT_APP_NEWS_URL}?apiKey=${process.env.REACT_APP_NEWS_API_KEY}&category=${this.state.category}&pageSize=20`;
+      axios.get(url)
+        .then(response=>{
+          this.setState({
+            news:response.data.articles
+          })
+        })
+        .catch(e=>{
+          console.log(e)
+        })
+    }
   }
 
   render() {
