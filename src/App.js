@@ -88,6 +88,18 @@ export class App extends Component {
           this.setState({isLoading:false})
         })
   }
+  search = searchTerm =>{
+    this.setState({ isLoading:true })
+    news.search(searchTerm)
+        .then(data=>{
+          this.setState({data, isLoading:false})
+        })
+        .catch(e=>{
+          console.log(e)
+          alert('Something Went Wrong')
+          this.setState({isLoading:false})
+        })
+  }
 
   render() {
     const { 
@@ -107,6 +119,7 @@ export class App extends Component {
                 <Header 
                     category = {category} 
                     changeCategory={this.changeCategory}
+                    search={this.search}
                 />
                 <div className='d-flex'>
                     <p className='text-black-50'>About {totalResults} results found</p>

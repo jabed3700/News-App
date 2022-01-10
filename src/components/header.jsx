@@ -5,11 +5,12 @@ export class Header extends Component {
         searchTerm: '',
     }
     handleChange = e =>{
-        // TODO: implement later
         this.setState({searchTerm: e.target.value})
     }
     handleKeyPress = e =>{
-        // TODO: implement later
+        if(e.key==="Enter"){
+            this.props.search(this.state.searchTerm)
+        }
     }
     render() {
         const {category,changeCategory} = this.props
